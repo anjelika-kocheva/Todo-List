@@ -1,0 +1,176 @@
+:root {
+    --box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    list-style: none;
+}
+
+.wrap {
+    background-image: url("../images/background.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    padding: 1.25rem;
+}
+
+.heading {
+    margin: 0.65rem auto 2.5rem;
+}
+
+h1 {
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 7rem;
+    letter-spacing: 1rem;
+    color: #e8e0d8;
+    font-family: Birthstone,sans-serif;
+    position: relative;
+    text-align: center;
+}
+h1 span {
+    position: absolute;
+    width: 100%;
+    top: 23%;
+    left: 0;
+    font-size: 4rem;
+    color: #cab5ae;
+    letter-spacing: 0;
+    font-family: Oswald;
+}
+
+.task-manager {
+    background-color: #e8e0d8;
+    padding: 2rem 2.5rem;
+    border-radius: 1rem;
+    min-width: 350px;
+    max-width: 450px;
+    margin: auto;
+}
+
+.search-box .search {
+    position: relative;
+    margin: 1rem 0px 3rem;
+}
+
+.search-box i.reset {
+    font-size: 1.5rem;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    position: absolute;
+    top: -0.5rem;
+    right: 1rem;
+}
+
+.search-box input {
+    width: 100%;
+    margin-right: 0.6rem;
+    padding: 0.5rem 3rem 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5rem;
+}
+
+.hide {
+    display: none!important;
+}
+
+.task-box .tasks {
+    margin: 0.65rem 0px;
+}
+
+.task-box li {
+    margin: 0.6rem 0;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    min-height: 4rem;
+    align-items: center;
+}
+.task-box li img.brush {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+.task-box span {
+    padding: 1.25rem 1.5rem 0.6rem;
+    position: relative;
+    z-index: 2;
+    font-family: IndieFlower;
+    font-size: 1.5rem;
+    color: #5a4a3f;
+}
+
+.task-box i.delete {
+    background-color: #c8b6ac;
+    border-radius: 0px 2px 2px 0px;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    margin-top: 10px;
+}
+i.delete:after {
+    display: none;
+    content: "x";
+    font-size: 2.5rem;
+    position: absolute;
+    top: -1rem;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+}
+.task-box i.delete:hover:after {
+    display: block;
+}
+
+.task-box .add {
+    display: flex;
+    margin: 3rem 0px 1rem;
+}
+
+.task-box input[type="submit"] {
+    padding: 0.6rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #cbb2ad;
+    border: 0px;
+    border-radius: 3px;
+}
+
+.task-box input[type="text"] {
+    border-radius: 3px;
+    width: 100%;
+    margin-right: 0.65rem;
+    padding: 0.65rem;
+    font-size: 1rem;
+}
+
+
+.message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2.5rem 0 0;
+    border-top: 2px dashed #cbb2ad;
+    padding-top: 1.5rem;
+}
+
+.message .clear {
+    border: 0px;
+    background-color: #fff;
+    color: #000000;
+    cursor: pointer;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border-radius: 3px;
+}
