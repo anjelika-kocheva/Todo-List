@@ -1,55 +1,92 @@
-const addForm = document.querySelector(".add");
-const tasks = document.querySelector(".tasks");
+const addForm = document.querySelector("form.add");
+const tasksUl = document.querySelector(".tasks");
 const clearAll = document.querySelector(".clear");
-const messageSpan = document.querySelector(".message span");
 const searchForm = document.querySelector(".search");
+const messageSpan = document.querySelector(".message span");
+
+let tasks = localStorage.getItem("tasks") !== null ? JSON.parse(localStorage.getItem("tasks")) : [];
 
 
 // update message
 function updateMessage(){
-    const taskLength = tasks.children.length;
+    const taskLength = tasksUl.children.length;
     messageSpan.textContent = `You have ${taskLength} pending tasks.`;
+};
+
+// add task to DOM
+function addTaskDOM(id, value){
+        tasksUl.innerHTML += getTemplate(id, value);
 }
 
-updateMessage();
+// add task to local storage 
+function addTask(value){
+    const task = {
+        id: Math.floor(Math.random()* 10000),
+        value: addForm.task.value
+    }
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    addTaskDOM(task.id, value);
+}
 
+// template for tasks 
+function getTemplate(id, value){
+    return `<li data-id=${id}>
+                <img src="./images/brush.png" alt="brush" class="brush">
+                <i class="delete"></i>
+                <span>${value}</span>
+            </li>`
+}
 
-// add item
 addForm.addEventListener("submit", event => {
     event.preventDefault();
 
-    const value = addForm.task.value.trim();
+    if(addForm.task.value.trim() === ""){
+        return alert("Please add task");
+    }
 
-    if(value.length){
-        tasks.innerHTML += `<li>
-                                <img src="./images/brush.png" alt="brush" class="brush">
-                                <i class="delete"></i>
-                                <span>${value}</span>
-                            </li>`
-        addForm.reset();
+    addTask(addForm.task.value.trim());
+    addForm.reset();
+    updateMessage();
+});
+
+// loop and display in DOM
+function getTask(){
+    tasks.forEach(task => {
+        tasksUl.innerHTML += getTemplate(task.id, task.value);
+    });
+}
+
+
+// delete task from local storage 
+function deleteTask(id){
+    tasks = tasks.filter(task => {
+        return task.id !== id;
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// delete task
+tasksUl.addEventListener("click", event => {
+    if(event.target.classList.contains("delete")){
+        event.target.parentElement.remove();
+        deleteTask(Number(event.target.parentElement.dataset.id));
         updateMessage();
     }
 });
 
-// remove item
-tasks.addEventListener("click", event => {
-    if(event.target.classList.contains("delete")){
-        event.target.parentElement.remove();
-        updateMessage();
-    }
-})
-
-// remove all items
+// delete all tasks
 clearAll.addEventListener("click", event => {
-    const taskItems = tasks.querySelectorAll("li");
+    const taskItems = tasksUl.querySelectorAll("li");
     taskItems.forEach(item => item.remove());
+    localStorage.setItem("tasks", "[]");
     updateMessage();
 });
 
 
-// search for terms
+// search for task
 function filterTask(term){
-    Array.from(tasks.children)
+    Array.from(tasksUl.children)
     .filter(task => {
         return !task.textContent.toLowerCase().includes(term);
     })
@@ -57,7 +94,7 @@ function filterTask(term){
         task.classList.add("hide");
     });
 
-    Array.from(tasks.children)
+    Array.from(tasksUl.children)
     .filter(task => {
         return task.textContent.toLowerCase().includes(term);
     })
@@ -80,3 +117,12 @@ searchForm.addEventListener("click", event => {
         filterTask(term);
     }
 })
+
+
+function init(){
+    getTask();
+    updateMessage();
+}
+
+init();
+
